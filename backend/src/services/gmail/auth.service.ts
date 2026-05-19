@@ -46,6 +46,7 @@ export class GmailAuthService {
       return client;
     }
 
+    console.log('Requesting Gmail scopes:', config.gmail.scopes);
     const authClient = await authenticate({
       scopes: config.gmail.scopes,
       keyfilePath: config.gmail.credentialsPath,
