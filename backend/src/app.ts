@@ -53,6 +53,11 @@ const PORT = config.port;
 if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT} in ${config.nodeEnv} mode`);
+    
+    // Start the background automation pipeline
+    orchestratorService.start().catch((err) => {
+      console.error('Failed to start the automation pipeline:', err);
+    });
   });
 }
 

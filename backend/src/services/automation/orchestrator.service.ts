@@ -127,6 +127,25 @@ export class OrchestratorService {
 
     return 'Unknown Company';
   }
+
+  /**
+   * Starts the background polling loop.
+   */
+  async start(intervalMs: number = 60000) {
+    console.log(`Starting automation pipeline polling every ${intervalMs / 1000}s...`);
+    
+    // Initial run
+    this.runPipeline().catch(err => console.error('Initial pipeline run failed:', err));
+
+    // Polling loop
+    setInterval(async () => {
+      try {
+        await this.runPipeline();
+      } catch (error) {
+        console.error('Scheduled pipeline run failed:', error);
+      }
+    }, intervalMs);
+  }
 }
 
 export const orchestratorService = new OrchestratorService();
