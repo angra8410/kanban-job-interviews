@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import { config } from './config';
 import authRoutes from './routes/auth.routes';
+import { orchestratorService } from './services/automation/orchestrator.service';
 
 const app = express();
 
@@ -15,6 +16,18 @@ app.use(morgan('dev'));
 
 // Routes
 app.use('/api', authRoutes);
+
+/**
+ * Trigger the full automation pipeline
+ */
+app.post('/api/run-pipeline', async (req: Request, res: Response) => {
+  try {
+    await orchestratorService.runPipeline();
+    res.json({ message: 'Pipeline executed successfully' });
+  } catch (error: any) {
+    res.status(500).json({ error: 'Pipeline execution failed', details: error.message });
+  }
+});
 
 // Basic health check route
 app.get('/health', (req: Request, res: Response) => {

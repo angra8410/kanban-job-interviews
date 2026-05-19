@@ -68,6 +68,25 @@ export class GmailService {
       throw error;
     }
   }
+
+  /**
+   * Marks a message as read by removing the UNREAD label
+   */
+  async markAsRead(messageId: string) {
+    try {
+      const gmail = await this.getGmailInstance();
+      await gmail.users.messages.batchModify({
+        userId: 'me',
+        requestBody: {
+          ids: [messageId],
+          removeLabelIds: ['UNREAD'],
+        },
+      });
+    } catch (error) {
+      console.error(`Error marking message ${messageId} as read:`, error);
+      throw error;
+    }
+  }
 }
 
 export const gmailService = new GmailService();

@@ -17,6 +17,7 @@ export const config = {
   },
   github: {
     token: process.env.GITHUB_TOKEN,
-    projectId: process.env.GITHUB_PROJECT_ID,
+    owner: process.env.GITHUB_OWNER,
+    projectNumber: parseInt(process.env.GITHUB_PROJECT_NUMBER || '0'),
   },
 };
