@@ -7,7 +7,7 @@ export class ProjectAutomationService {
    */
   private statusMap: Record<JobStatus, string> = {
     [JobStatus.APPLIED]: 'Applied',
-    [JobStatus.RECRUITER_CONTACT]: 'Recruiter Screen',
+    [JobStatus.RECRUITER_CONTACT]: 'Recruiter Contact',
     [JobStatus.INTERVIEW]: 'Interview',
     [JobStatus.TECHNICAL_INTERVIEW]: 'Technical Interview',
     [JobStatus.ASSESSMENT]: 'Assessment',
